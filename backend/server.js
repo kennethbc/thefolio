@@ -536,3 +536,12 @@ const createDefaultAdmin = async () => {
     console.error('❌ Error creating admin:', error.message);
   }
 };
+
+// Start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
+
+// Initialize admin user
+createDefaultAdmin();
