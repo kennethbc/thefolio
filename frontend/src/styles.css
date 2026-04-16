@@ -1,0 +1,395 @@
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ff3d00, #ff9800, #ffeb3b, #ff3d00);
+    background-size: 600% 600%;
+    color: #1a1a1a;
+    line-height: 1.6;
+    transition: background 0.5s, color 0.5s;
+    animation: gradientShift 20s ease infinite;
+}
+
+/* ===== GRADIENT ANIMATION ===== */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ===== HEADER ===== */
+header {
+    background: rgba(211, 47, 47, 0.9);
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+header h1 img {
+    vertical-align: middle;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+nav ul li {
+    margin: 0 5px;
+}
+
+nav ul li button {
+    color: white;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    background: rgba(211, 47, 47, 0.9);
+    transition: background 0.3s;
+}
+
+nav ul li button:hover,
+nav ul li button.active {
+    background-color: #ff9800;
+}
+
+/* ===== HERO ===== */
+.hero {
+    padding: 40px;
+    text-align: center;
+    background: rgba(255, 193, 7, 0.2);
+    border-radius: 15px;
+    margin: 20px auto;
+    max-width: 900px;
+}
+
+.hero img {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+/* ===== SECTIONS ===== */
+section {
+    padding: 30px;
+    max-width: 900px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+}
+
+ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.preview {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: rgba(255,255,255,0.9);
+    flex: 1;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* ===== FORM STYLES ===== */
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    background: rgba(255,255,255,0.95);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    transition: background 0.3s, color 0.3s;
+}
+
+form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: border 0.3s;
+}
+
+form input:focus,
+form textarea:focus {
+    border-color: #ff9800;
+    outline: none;
+}
+
+form button {
+    background: #d32f2f;
+    color: white;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+form button:hover {
+    background-color: #ff9800;
+}
+
+/* ===== QUIZ STYLES ===== */
+.quiz-container {
+    background: rgba(255,255,255,0.95);
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    max-width: 600px;
+    margin: 30px auto;
+    transition: background 0.5s, color 0.5s;
+}
+
+.quiz-container h2 {
+    margin-bottom: 15px;
+    color: #ff3d00;
+    text-align: center;
+}
+
+#quizQuestion {
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.options {
+    margin-bottom: 20px;
+}
+
+.option {
+    background: #f4f4f4;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin: 8px 0;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+    font-weight: bold;
+    text-align: center;
+}
+
+.option:hover {
+    border-color: #ff9800;
+    background: #fff3e0;
+}
+
+.option.selected {
+    background: #ffd180;
+    border-color: #ff3d00;
+}
+
+.quiz-container button {
+    background: #ff3d00;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.quiz-container button:hover:not(:disabled) {
+    background: #ff9800;
+}
+
+.quiz-container button:disabled {
+    background: #cccccc;
+    cursor: default;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: rgba(211, 47, 47, 0.9);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1000px) {
+    .preview {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .quiz-container {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+/* ===== DARK MODE ===== */
+body.dark-mode {
+    background: linear-gradient(135deg, #1b1b1b, #333, #444, #1b1b1b);
+    background-size: 600% 600%;
+    animation: gradientShift 25s ease infinite;
+    color: #f1f1f1;
+}
+
+body.dark-mode header,
+body.dark-mode footer {
+    background: rgba(27,27,27,0.9);
+}
+
+body.dark-mode nav ul li button:hover,
+body.dark-mode nav ul li button.active {
+    background-color: #ff9800;
+}
+
+body.dark-mode .hero {
+    background: rgba(40, 40, 40, 0.8);
+}
+
+body.dark-mode section,
+body.dark-mode .card,
+body.dark-mode form {
+    background: rgba(50,50,50,0.85);
+    color: #f1f1f1;
+}
+
+body.dark-mode input,
+body.dark-mode textarea {
+    background: #333;
+    color: #f1f1f1;
+    border: 1px solid #555;
+}
+
+body.dark-mode button {
+    background-color: #ff9800;
+    color: #121212;
+}
+
+body.dark-mode .quiz-container {
+    background: rgba(51,51,51,0.9);
+    color: #fff;
+}
+
+body.dark-mode .option {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+body.dark-mode .option:hover {
+    background: rgba(255, 165, 0, 0.2);
+}
+
+body.dark-mode .option.selected {
+    background: #ffa500;
+    border-color: #ff9800;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ===== MAP SECTION ===== */
+.map-section {
+    text-align: center;
+    padding: 20px;
+}
+
+.map-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* ===== RESOURCES TABLE ===== */
+.resources table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.resources th,
+.resources td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.resources th {
+    background-color: #ff3d00;
+    color: white;
+}
+
+body.dark-mode .resources th {
+    background-color: #ff9800;
+    color: #121212;
+}
+
+body.dark-mode .resources td {
+    border-color: #555;
+}
+
+/* ===== PAGE BORDER ===== */
+.page-border {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* Fix for text direction */
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+p,
+h1, h2, h3, h4, h5, h6,
+.post-content,
+.comment-text {
+  direction: ltr !important;
+  unicode-bidi: normal !important;
+  text-align: left !important;
+}
+
+/* Para sa mga textarea sa post creation */
+form textarea,
+form input {
+  direction: ltr !important;
+  unicode-bidi: normal !important;
+}
