@@ -17,10 +17,10 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/thefolio', {
+mongoose.connect(process.env.MONGO_URI), {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+};
 
 mongoose.connection.on('connected', () => {
   console.log('✅ MongoDB Connected to thefolio database');
@@ -498,6 +498,7 @@ const createDefaultAdmin = async () => {
   try {
     console.log('🔍 Checking for existing admin user...');
     
+    // Check muna kung may admin
     const adminExists = await User.findOne({ email: 'admin@thefolio.com' });
     
     if (adminExists) {
@@ -523,6 +524,7 @@ const createDefaultAdmin = async () => {
     console.log('📧 Email: admin@thefolio.com');
     console.log('🔑 Password: admin123');
     
+    // Verify na na-save
     const verifyAdmin = await User.findOne({ email: 'admin@thefolio.com' });
     if (verifyAdmin) {
       console.log('✅ Verification: Admin found in database');
@@ -534,15 +536,3 @@ const createDefaultAdmin = async () => {
     console.error('❌ Error creating admin:', error.message);
   }
 };
-
-// ============= START SERVER =============
-const PORT = 5001;
-
-createDefaultAdmin().then(() => {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log(`📊 Database: thefolio`);
-    console.log(`📁 Uploads folder: ${path.join(__dirname, 'uploads')}`);
-    console.log(`📬 Contact messages endpoint: http://localhost:${PORT}/api/contact`);
-  });
-});
