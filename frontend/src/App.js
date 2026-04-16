@@ -3,7 +3,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './styles.css';
 
-const API_URL = 'http://localhost:5001/api';
+const API_URL = 'https://thefolio-api-u4i3.onrender.com/api';
+const BACKEND_URL = 'https://thefolio-api-u4i3.onrender.com';
 
 function App() {
   const [currentView, setCurrentView] = useState('home');
@@ -330,6 +331,12 @@ function App() {
     fontWeight: 'bold'
   };
 
+  // Helper function for profile pictures
+  const getProfilePicUrl = (profilePicPath) => {
+    if (!profilePicPath) return null;
+    return `${BACKEND_URL}${profilePicPath}`;
+  };
+
   // Footer Component
   const Footer = () => (
     <footer style={{
@@ -464,7 +471,7 @@ function App() {
     <div style={cardStyle}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
         <img 
-          src={user?.profilePic ? `http://localhost:5001${user.profilePic}` : `https://ui-avatars.com/api/?background=ff9800&color=fff&bold=true&size=50&name=${user?.name?.charAt(0)}`}
+          src={user?.profilePic ? `${BACKEND_URL}${user.profilePic}` : `https://ui-avatars.com/api/?background=ff9800&color=fff&bold=true&size=50&name=${user?.name?.charAt(0)}`}
           alt="Profile"
           style={{
             width: '50px',
@@ -526,29 +533,29 @@ function App() {
       {showPostForm && (
         <form onSubmit={handleCreatePost} style={{ marginTop: '20px', borderTop: `1px solid ${darkMode ? '#444' : '#ddd'}`, paddingTop: '20px' }}>
           <textarea
-  value={postContent}
-  onChange={(e) => setPostContent(e.target.value)}
-  placeholder={`What's on your mind, ${user?.name}?`}
-  required
-  rows="4"
-  style={{
-    width: '100%',
-    padding: '12px',
-    border: `1px solid ${darkMode ? '#555' : '#ddd'}`,
-    borderRadius: '8px',
-    marginBottom: '15px',
-    fontSize: '16px',
-    fontFamily: 'inherit',
-    resize: 'vertical',
-    background: darkMode ? '#2a2a2a' : 'white',
-    color: darkMode ? '#e4e6eb' : '#1a1a1a',
-    direction: 'ltr !important',
-    textAlign: 'left',
-    unicodeBidi: 'normal',
-    writingMode: 'horizontal-tb'
-  }}
-  autoFocus
-/>
+            value={postContent}
+            onChange={(e) => setPostContent(e.target.value)}
+            placeholder={`What's on your mind, ${user?.name}?`}
+            required
+            rows="4"
+            style={{
+              width: '100%',
+              padding: '12px',
+              border: `1px solid ${darkMode ? '#555' : '#ddd'}`,
+              borderRadius: '8px',
+              marginBottom: '15px',
+              fontSize: '16px',
+              fontFamily: 'inherit',
+              resize: 'vertical',
+              background: darkMode ? '#2a2a2a' : 'white',
+              color: darkMode ? '#e4e6eb' : '#1a1a1a',
+              direction: 'ltr !important',
+              textAlign: 'left',
+              unicodeBidi: 'normal',
+              writingMode: 'horizontal-tb'
+            }}
+            autoFocus
+          />
           
           {postMedia && (
             <div style={{ marginBottom: '15px', position: 'relative' }}>
@@ -640,14 +647,13 @@ function App() {
     </div>
   );
 
-  // Individual Post Component - FIXED VERSION
+  // Individual Post Component
   const PostCard = ({ post }) => {
     const [showReactions, setShowReactions] = useState(false);
     const [showCommentSection, setShowCommentSection] = useState(false);
     const [localComments, setLocalComments] = useState([]);
     const [localCommentText, setLocalCommentText] = useState('');
 
-    // Load comments function - FIXED
     const loadComments = useCallback(async () => {
       const comments = await fetchComments(post._id);
       setLocalComments(comments);
@@ -688,7 +694,7 @@ function App() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '15px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <img 
-              src={post.author?.profilePic ? `http://localhost:5001${post.author.profilePic}` : `https://ui-avatars.com/api/?background=ff9800&color=fff&bold=true&size=50&name=${post.author?.name?.charAt(0)}`}
+              src={post.author?.profilePic ? `${BACKEND_URL}${post.author.profilePic}` : `https://ui-avatars.com/api/?background=ff9800&color=fff&bold=true&size=50&name=${post.author?.name?.charAt(0)}`}
               alt="Profile"
               style={{
                 width: '50px',
@@ -729,18 +735,18 @@ function App() {
             <div style={{ marginTop: '15px' }}>
               {post.mediaType === 'image' ? (
                 <img 
-                  src={`http://localhost:5001${post.media}`} 
+                  src={`${BACKEND_URL}${post.media}`}
                   alt="Post content" 
                   style={{ 
                     width: '100%', 
                     borderRadius: '8px',
                     cursor: 'pointer'
                   }}
-                  onClick={() => window.open(`http://localhost:5001${post.media}`, '_blank')}
+                  onClick={() => window.open(`${BACKEND_URL}${post.media}`, '_blank')}
                 />
               ) : post.mediaType === 'video' && (
                 <video 
-                  src={`http://localhost:5001${post.media}`} 
+                  src={`${BACKEND_URL}${post.media}`} 
                   controls 
                   style={{ width: '100%', borderRadius: '8px' }}
                 />
@@ -840,7 +846,7 @@ function App() {
           <div style={{ marginTop: '15px', paddingTop: '15px', borderTop: `1px solid ${darkMode ? '#444' : '#ddd'}` }}>
             <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
               <img 
-                src={user?.profilePic ? `http://localhost:5001${user.profilePic}` : `https://ui-avatars.com/api/?background=ff9800&color=fff&bold=true&size=40&name=${user?.name?.charAt(0)}`}
+                src={user?.profilePic ? `${BACKEND_URL}${user.profilePic}` : `https://ui-avatars.com/api/?background=ff9800&color=fff&bold=true&size=40&name=${user?.name?.charAt(0)}`}
                 alt="Profile"
                 style={{
                   width: '40px',
@@ -893,7 +899,7 @@ function App() {
               localComments.map(comment => (
                 <div key={comment._id} style={{ marginBottom: '15px', display: 'flex', gap: '10px' }}>
                   <img 
-                    src={comment.author?.profilePic ? `http://localhost:5001${comment.author.profilePic}` : `https://ui-avatars.com/api/?background=ff9800&color=fff&bold=true&size=35&name=${comment.author?.name?.charAt(0)}`}
+                    src={comment.author?.profilePic ? `${BACKEND_URL}${comment.author.profilePic}` : `https://ui-avatars.com/api/?background=ff9800&color=fff&bold=true&size=35&name=${comment.author?.name?.charAt(0)}`}
                     alt="Profile"
                     style={{
                       width: '35px',
@@ -1007,7 +1013,7 @@ function App() {
         
         <div style={{ textAlign: 'center', marginBottom: '20px' }}>
           <img 
-            src={user?.profilePic ? `http://localhost:5001${user.profilePic}` : `https://ui-avatars.com/api/?background=ff9800&color=fff&bold=true&size=120&name=${user?.name?.charAt(0)}`}
+            src={user?.profilePic ? `${BACKEND_URL}${user.profilePic}` : `https://ui-avatars.com/api/?background=ff9800&color=fff&bold=true&size=120&name=${user?.name?.charAt(0)}`}
             alt="Profile"
             style={{
               width: '120px',
@@ -1123,7 +1129,6 @@ function App() {
 
     return (
       <div style={containerStyle}>
-        {/* User Management Section */}
         <div style={cardStyle}>
           <h2 style={{ color: '#ff3d00', marginBottom: '20px' }}>User Management</h2>
           <div style={{ overflowX: 'auto' }}>
@@ -1177,7 +1182,6 @@ function App() {
           </div>
         </div>
 
-        {/* Contact Messages Section */}
         <div style={cardStyle}>
           <h2 style={{ color: '#ff3d00', marginBottom: '20px' }}>
             📬 Contact Messages
@@ -1786,8 +1790,6 @@ function App() {
       </form>
     </div>
   );
-
-     // ... (lahat ng render functions)
 
   return (
     <>
