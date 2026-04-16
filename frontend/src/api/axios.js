@@ -1,67 +1,19 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import API from '../api/axios';
+import axios from 'axios';
 
-const AuthContext = createContext();
+const API = axios.create({
+  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+// Add token to requests if it exists
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = token;
+  }
+  return config;
+});
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      API.get('/auth/me')
-        .then(res => setUser(res.data))
-        .catch(() => localStorage.removeItem('token'))
-        .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
-  const login = async (email, password) => {
-    const { data } = await API.post('/auth/login', { email, password });
-    localStorage.setItem('token', data.token);
-    setUser(data.user);
-    return data.user;
-  };
-
-  const register = async (name, email, password) => {
-    const { data } = await API.post('/auth/register', { name, email, password });
-    localStorage.setItem('token', data.token);
-    setUser(data.user);
-    return data.user;
-  };
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-  };
-
-  const updateProfile = async (formData) => {
-    const { data } = await API.put('/auth/profile', formData);
-    setUser(data);
-    return data;
-  };
-
-  const changePassword = async (currentPassword, newPassword) => {
-    const { data } = await API.put('/auth/change-password', { currentPassword, newPassword });
-    return data;
-  };
-
-  return (
-    <AuthContext.Provider value={{
-      user,
-      loading,
-      login,
-      register,
-      logout,
-      updateProfile,
-      changePassword
-    }}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
-};
-
-export const useAuth = () => useContext(AuthContext);
+export default API;
